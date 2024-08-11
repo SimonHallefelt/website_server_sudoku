@@ -60,3 +60,16 @@ td {
     width: 25px; /* Fix aspect-ratio */
     text-align: center;
 }
+
+.number-selection-buttons-container {
+    border: 0px;
+    padding: 0px;
+    margin: 5px;
+    display: flex;
+    justify-content: center;
+}
+
+.number-selection {
+    font-size: 16px;
+    margin: 3px;
+}
