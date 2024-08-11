@@ -1,0 +1,42 @@
+body {
+    background-color: gray;
+    border: 0px;
+    padding: 0px;
+    margin: 0px;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 20px;
+}
+
+.center-container {
+    top: 0px;
+    border: 0px;
+    padding: 20px;
+    background-color: white;
+    max-width: 1000px;
+    margin: auto;
+    height: 100vh;
+}
+
+h1 {
+    color : red;
+    text-align : center;
+    font-size: 50px;
+    border: 0px;
+    padding: 0px;
+    margin: 0px;
+    margin-top: 30px;
+}
+
+p {
+    text-align : center;
+}
+
+table {
+    border: 1px solid black; 
+    border-collapse: collapse
+}
+
+td {
+    border: 1px solid black; 
+    border-collapse: collapse
+}
