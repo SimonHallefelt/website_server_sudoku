@@ -33,10 +33,11 @@ p {
 
 table {
     border: 1px solid black; 
-    border-collapse: collapse
+    border-collapse: collapse;
 }
 
 td {
     border: 1px solid black; 
-    border-collapse: collapse
+    border-collapse: collapse;
+    padding: 3px;
 }
