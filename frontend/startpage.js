@@ -7,11 +7,10 @@ function numberButton(number) {
         lastCellPressed.textContent = 1
     }
     lastCellPressed.textContent = number
-    alert(number)
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    var cells = document.querySelectorAll('td');
+    var cells = document.querySelectorAll('.sudokuCell');
     cells.forEach(function(cell) {
         cell.addEventListener('click', function() {
             lastCellPressed = cell;

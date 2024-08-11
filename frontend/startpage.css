@@ -31,13 +31,32 @@ p {
     text-align : center;
 }
 
-table {
-    border: 1px solid black; 
-    border-collapse: collapse;
+td {
+    border: 0px;
+    padding: 0px;
+    margin: 0px;
 }
 
-td {
+.sudoku {
+    border: 0px;
+    padding: 0px;
+    margin: auto;
+    border-spacing: 0;
+    border: 1px solid black; 
+}
+
+.sudokuBox3x3 {
+    border-spacing: 0;
     border: 1px solid black; 
     border-collapse: collapse;
     padding: 3px;
+}
+
+.sudokuCell {
+    border: 1px solid black; 
+    border-collapse: collapse;
+    padding: 4px;
+    height: 25px; /* Fix aspect-ratio */
+    width: 25px; /* Fix aspect-ratio */
+    text-align: center;
 }
