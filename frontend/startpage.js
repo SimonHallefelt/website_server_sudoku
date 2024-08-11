@@ -3,13 +3,9 @@ var cells = document.querySelectorAll('.sudokuCell');
 var sudokuStartValues = []
 
 function numberButton(number) {
-    if (!isNaN(number)) {
+    if (sudokuStartValues[lastCellPressed.getAttribute('data-row') -1][lastCellPressed.getAttribute('data-col') -1] == 0) {
         lastCellPressed.textContent = number
-    } else {
-        lastCellPressed.textContent = 1
     }
-    lastCellPressed.textContent = number
-    alert()
 }
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -46,6 +42,7 @@ function setStartCellValues() {
         var value = sudokuStartValues[cell.getAttribute('data-row') -1][cell.getAttribute('data-col') -1];
         if (value != 0) {
             cell.textContent = value
+            cell.style.fontWeight = 'bold';
         } else {
             cell.textContent = ' '
         }
