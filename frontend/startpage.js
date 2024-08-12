@@ -133,3 +133,19 @@ var x = setInterval(function() {
         document.getElementById("timer").innerHTML = min + ':' + sec;
     }
 }, 200); 
+
+function resetSudoku() {
+    if (!sudokuCorrect) {
+        allSudokuValues = [];
+        sudokuStartValues.forEach(array => {
+            allSudokuValues.push([].concat(array));
+        });
+        setCellValues();
+    } else {
+        alert('your sudoku is already correct')
+    }
+}
+
+function getNewSudoku() {
+    // todo
+}

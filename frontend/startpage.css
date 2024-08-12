@@ -71,6 +71,13 @@ td {
     justify-content: center;
 }
 
+.sudoku-button-container {
+    padding-top: 10px;
+    margin: 5px;
+    display: flex;
+    justify-content: center;
+}
+
 .number-selection {
     font-size: 16px;
     margin: 3px;
