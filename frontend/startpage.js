@@ -128,6 +128,9 @@ var x = setInterval(function() {
     if (sec < 10) {
         sec = '0' + sec
     }
+    if (min < 10) {
+        min = '0' + min
+    }
 
     if (!sudokuCorrect) {
         document.getElementById("timer").innerHTML = min + ':' + sec;

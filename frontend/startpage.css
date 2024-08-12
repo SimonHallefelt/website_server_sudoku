@@ -31,6 +31,14 @@ p {
     text-align : center;
 }
 
+.player-info {
+    margin: auto;
+}
+.player-info-td {
+    width: 120px;
+    text-align: center;
+}
+
 td {
     border: 0px;
     padding: 0px;
