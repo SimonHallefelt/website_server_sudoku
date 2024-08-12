@@ -1,8 +1,9 @@
 var lastCellPressed;
 var cells = document.querySelectorAll('.sudokuCell');
-var sudokuStartValues = []
-var allSudokuValues = []
-var sudokuCorrect = false
+var sudokuStartValues = [];
+var allSudokuValues = [];
+var sudokuCorrect = false;
+var startTime = new Date().getTime();
 
 function setNumber(number) {
     if (sudokuStartValues[lastCellPressed.getAttribute('data-row') -1][lastCellPressed.getAttribute('data-col') -1] == 0 && !sudokuCorrect) {
@@ -114,3 +115,21 @@ function contains1To9(array) {
     }
     return true
 }
+
+// timer, update every 500ms
+var x = setInterval(function() {
+    console.log('timer Start')
+    var now = new Date().getTime();
+    var timeDifference = now - startTime; // ms
+    
+    var sec = Math.floor((timeDifference % (60 * 1000)) / 1000);
+    var min = Math.floor(timeDifference / (60 * 1000));
+
+    if (sec < 10) {
+        sec = '0' + sec
+    }
+
+    if (!sudokuCorrect) {
+        document.getElementById("timer").innerHTML = min + ':' + sec;
+    }
+}, 200); 
