@@ -1,5 +1,5 @@
-var lastCellPressed;
 var cells = document.querySelectorAll('.sudokuCell');
+var lastCellPressed = cells[0];
 var sudokuStartValues = [];
 var allSudokuValues = [];
 var sudokuCorrect = false;
@@ -20,8 +20,19 @@ document.addEventListener('DOMContentLoaded', function() {
     var cells = document.querySelectorAll('.sudokuCell');
     cells.forEach(function(cell) {
         cell.addEventListener('click', function() {
+            lastCellPressed.style.backgroundColor = 'white';
             lastCellPressed = cell;
+            lastCellPressed.style.backgroundColor = 'gray';
         });
+    });
+    var playerInfo = document.querySelectorAll('.player-info-td');
+    playerInfo.forEach(function(info) {
+        if (info.getAttribute('id') == 'username') {
+            info.addEventListener('click', function() {
+                info.style.backgroundColor = 'gray';
+                // todo, enter your own username
+            });
+        }
     });
 });
 
@@ -32,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function createDefaultStartSudoku() {
-    sudokuStartValues.push([0,0,1, 0,7,6, 3,4,0])
+    sudokuStartValues.push([0,2,1, 0,7,6, 3,4,0])
     sudokuStartValues.push([8,0,4, 0,0,1, 6,7,0])
     sudokuStartValues.push([0,7,6, 0,4,8, 0,0,2])
 
@@ -118,7 +129,7 @@ function contains1To9(array) {
 
 // timer, update every 500ms
 var x = setInterval(function() {
-    console.log('timer Start')
+    // console.log('timer Start')
     var now = new Date().getTime();
     var timeDifference = now - startTime; // ms
     
