@@ -16,6 +16,7 @@ function setNumber(number) {
     }
 }
 
+// triggers when page load
 document.addEventListener('DOMContentLoaded', function() {
     var cells = document.querySelectorAll('.sudokuCell');
     cells.forEach(function(cell) {
@@ -25,19 +26,6 @@ document.addEventListener('DOMContentLoaded', function() {
             lastCellPressed.style.backgroundColor = 'gray';
         });
     });
-    var playerInfo = document.querySelectorAll('.player-info-td');
-    playerInfo.forEach(function(info) {
-        if (info.getAttribute('id') == 'username') {
-            info.addEventListener('click', function() {
-                info.style.backgroundColor = 'gray';
-                // todo, enter your own username
-            });
-        }
-    });
-});
-
-// triggers when page load
-document.addEventListener('DOMContentLoaded', function() {
     createDefaultStartSudoku();
     setCellValues();
 });

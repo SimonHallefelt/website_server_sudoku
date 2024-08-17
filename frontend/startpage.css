@@ -40,6 +40,14 @@ p {
     text-align: center;
 }
 
+.username-input {
+    border: 0px;
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 20px;
+    width: 120px;
+}
+
 td {
     border: 0px;
     padding: 0px;
