@@ -1,7 +1,7 @@
 mod api;
 
-use api::make_sudoku::{
-    say_hello,
+use api::sudoku::{
+    post_is_sudoku_correct,
 };
 
 use api::task::{
@@ -29,8 +29,7 @@ async fn main() -> std::io::Result<()> {
     std::env::set_var("RUST_bACKTRACE", "1");
     env_logger::init();
 
-    println!("Hello, world!");
-    println!("{}", say_hello());
+    println!("Backend starting!");
 
     HttpServer::new(move || {
         let logger = Logger::default();
@@ -40,6 +39,7 @@ async fn main() -> std::io::Result<()> {
         .service(get_task)
         .service(home_page_style)
         .service(home_page_js)
+        .service(post_is_sudoku_correct)
         // .service(Files::new("static", ".").prefer_utf8(true))
     })
     .bind((address, port))?

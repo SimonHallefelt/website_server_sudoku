@@ -16,24 +16,24 @@ pub async fn home_page() -> Result<HttpResponse, Error> {
     Ok(
         HttpResponse::build(StatusCode::OK)
         .content_type("text/html; carset=utf-8")
-        .body(include_str!("../../../frontend/startpage.html"))
+        .body(include_str!("../../../frontend/homepage.html"))
     )
 }
 
-#[get("/startpage.css")]
+#[get("/static/homepage.css")]
 pub async fn home_page_style() -> Result<HttpResponse, Error> {
     Ok(
         HttpResponse::build(StatusCode::OK)
         .content_type("text/css; carset=utf-8")
-        .body(include_str!("../../../frontend/startpage.css"))
+        .body(include_str!("../../../frontend/homepage.css"))
     )
 }
 
-#[get("/startpage.js")]
+#[get("/script/homepage.js")]
 pub async fn home_page_js() -> Result<HttpResponse, Error> {
     Ok(
         HttpResponse::build(StatusCode::OK)
         .content_type("text/js; carset=utf-8")
-        .body(include_str!("../../../frontend/startpage.js"))
+        .body(include_str!("../../../frontend/homepage.js"))
     )
 }
