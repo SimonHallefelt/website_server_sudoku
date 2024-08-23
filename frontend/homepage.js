@@ -161,7 +161,7 @@ var x = setInterval(function() {
 
 function postServerIsSudokuCorrect() {
     var jsonData = JSON.stringify({"allSudokuValues": allSudokuValues,})
-    console.log("jsonDataToSent:",jsonData)
+    console.log("jsonDataToSent:", jsonData)
     return fetch("http://127.0.0.1/post/isSudokuCorrect", {
         method: "POST",
         headers: {
@@ -194,5 +194,23 @@ function resetSudoku() {
 }
 
 function getNewSudoku() {
-    // todo
+    return fetch("http://127.0.0.1/post/newSudoku", {
+        method: "POST",
+    })
+    .then(response => response.json())
+    .then(json => {
+        console.log("New Sudoku: " + json.new_sudoku)
+        var new_sudoku = json.new_sudoku
+        sudokuStartValues = []
+        for (let i = 0; i < 9; i++) {
+            sudokuStartValues.push(new_sudoku[i])
+        }
+        allSudokuValues = []
+        sudokuStartValues.forEach(array => {
+            allSudokuValues.push([].concat(array));
+        });
+        
+        sudokuCorrect = false;
+        setCellValues()
+    })
 }

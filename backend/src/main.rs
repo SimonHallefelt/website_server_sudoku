@@ -2,6 +2,7 @@ mod api;
 
 use api::sudoku::{
     post_is_sudoku_correct,
+    post_new_sudoku,
 };
 
 use api::task::{
@@ -40,6 +41,7 @@ async fn main() -> std::io::Result<()> {
         .service(home_page_style)
         .service(home_page_js)
         .service(post_is_sudoku_correct)
+        .service(post_new_sudoku)
         // .service(Files::new("static", ".").prefer_utf8(true))
     })
     .bind((address, port))?
