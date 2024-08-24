@@ -171,7 +171,7 @@ fn no_double_number(sudoku: &Vec<Vec<i8>>, row: usize, col: usize) -> bool {
         }
     }
     // 9x9 box
-    let row_box_start = row/3; // will it optimize away the multiplication and division
+    let row_box_start = row/3; // will it optimize away multiplication and division?
     let col_box_start = col/3;
     for i in 0..3 {
         for j in 0..3 {

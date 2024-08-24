@@ -3,18 +3,24 @@ var lastCellPressed = cells[0];
 var sudokuStartValues = [];
 var allSudokuValues = [];
 var sudokuCorrect = false;
-var startTime = new Date().getTime();
 var scoreCell;
 var score = 0;
+var startTime = new Date().getTime();
+var TimePrevious = 0;
+var doubleNumberSet = new Set();
 
 function setNumber(number) {
-    if (sudokuStartValues[lastCellPressed.getAttribute('data-row') -1][lastCellPressed.getAttribute('data-col') -1] == 0 && !sudokuCorrect) {
+    var row = lastCellPressed.getAttribute('data-row') -1
+    var col = lastCellPressed.getAttribute('data-col') -1
+    if (sudokuStartValues[row][col] == 0 && !sudokuCorrect) {
         lastCellPressed.textContent = number;
-        allSudokuValues[lastCellPressed.getAttribute('data-row') -1][lastCellPressed.getAttribute('data-col') -1] = number;
+        allSudokuValues[row][col] = number;
+        checkDoubleNumbers(row, col)
         if (isSudokuCorrect()) {
             if (postServerIsSudokuCorrect()) {
                 console.log("sudoku is correct!!!")
                 sudokuCorrect = true
+                TimePrevious += new Date().getTime() - startTime
                 // todo, show the user they won
             }
         }
@@ -26,9 +32,10 @@ document.addEventListener('DOMContentLoaded', function() {
     var cells = document.querySelectorAll('.sudokuCell')
     cells.forEach(function(cell) {
         cell.addEventListener('click', function() {
-            lastCellPressed.style.backgroundColor = 'white'
             lastCellPressed = cell
-            lastCellPressed.style.backgroundColor = 'gray'
+            var row = lastCellPressed.getAttribute('data-row') -1
+            var col = lastCellPressed.getAttribute('data-col') -1
+            formatCellColors(row, col)
         });
     });
     var cells = document.querySelectorAll('.player-info-td')
@@ -142,7 +149,7 @@ function contains1To9(array) {
 var x = setInterval(function() {
     // console.log('timer Start')
     var now = new Date().getTime();
-    var timeDifference = now - startTime; // ms
+    var timeDifference = TimePrevious + now - startTime; // ms
     
     var sec = Math.floor((timeDifference % (60 * 1000)) / 1000);
     var min = Math.floor(timeDifference / (60 * 1000));
@@ -212,5 +219,75 @@ function getNewSudoku() {
         
         sudokuCorrect = false;
         setCellValues()
+        startTime = new Date().getTime();
+    })
+}
+
+function checkDoubleNumbers(r, c) {
+    var oldDoubleNumberSet = doubleNumberSet
+    var newDoubleNumberSet = new Set()
+
+    var set = doubleNumber(r, c)
+    set.forEach(newDoubleNumber => {
+        newDoubleNumberSet.add(JSON.stringify(newDoubleNumber))
+    })
+
+    oldDoubleNumberSet.forEach(previousDoubleNumberString => {
+        var previousDoubleNumber = JSON.parse(previousDoubleNumberString)
+        set = doubleNumber(previousDoubleNumber[0], previousDoubleNumber[1])
+        set.forEach(newDoubleNumber => {
+            if (!newDoubleNumberSet.has(JSON.stringify(newDoubleNumber))) {
+                newDoubleNumberSet.add(JSON.stringify(newDoubleNumber))
+            }
+        })
+    })
+    doubleNumberSet = newDoubleNumberSet
+    console.log("doubleNumberSet:", doubleNumberSet)
+    formatCellColors(r, c)
+}
+
+function doubleNumber(row, col) {
+    let value = allSudokuValues[row][col];
+    var setDoubleNumberFound = new Set();
+    // row and col
+    for (let i = 0; i < 9; i++) {
+        if (allSudokuValues[row][i] == value && i != col) {
+            setDoubleNumberFound.add([row, i])
+        }
+        if (allSudokuValues[i][col] == value && i != row) {
+            setDoubleNumberFound.add([i, col])
+        }
+    }
+    // 9x9 box
+    let rowBoxStart = Math.floor(row/3); // will it optimize away multiplication and division?
+    let colBoxStart = Math.floor(col/3);
+    for (let i = 0; i < 3; i++) {
+        for (let j = 0; j < 3; j++) {
+            if (allSudokuValues[i+rowBoxStart*3][j+colBoxStart*3] == value && (i+rowBoxStart*3 != row || j+colBoxStart*3 != col)) {
+                setDoubleNumberFound.add([i+rowBoxStart*3, j+colBoxStart*3])
+            }
+        }
+    }
+    if (setDoubleNumberFound.size > 0) {
+        setDoubleNumberFound.add([row, col])
+    }
+    return setDoubleNumberFound;
+}
+
+function formatCellColors(r, c) {
+    cells.forEach(cell => {
+        var row = cell.getAttribute('data-row') -1
+        var col = cell.getAttribute('data-col') -1
+        if (row == r && col == c) {
+            if (doubleNumberSet.has(JSON.stringify([row, col]))) {
+                cell.style.backgroundColor = 'darkred'
+            } else {
+                cell.style.backgroundColor = 'gray'
+            }
+        } else if (doubleNumberSet.has(JSON.stringify([row, col]))) {
+            cell.style.backgroundColor = 'red'
+        } else {
+            cell.style.backgroundColor = 'white'
+        }
     })
 }
